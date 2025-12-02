@@ -1,3 +1,5 @@
+import 'package:coffee_demo/data/catecory_data.dart';
+import 'package:coffee_demo/data/product_data.dart';
 import 'package:coffee_demo/data/promotion_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -10,7 +12,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          //AppBar
           Container(
             width: double.infinity,
             height: 400,
@@ -156,6 +157,89 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(catecory_data.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: (index == 0)
+                            ? Color(0xFFc67c4e)
+                            : const Color.fromARGB(60, 173, 172, 172),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${catecory_data[index].title}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: (index == 0) ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1 / 1.55,
+                ),
+                itemCount: promotion_data.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 160,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image(
+                              image: NetworkImage(
+                                '${product_data[index].imageUrl}',
+                              ),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        SizedBox(
+                          child: Text(
+                            '${product_data[index].name}',
+                            style: TextStyle(),
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
