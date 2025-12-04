@@ -222,7 +222,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailScreen(),
+                            builder: (context) => DetailScreen(productIDHome:product_data[index].id,),
                           ),
                         );
                       },
