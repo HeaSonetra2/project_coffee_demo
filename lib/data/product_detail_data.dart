@@ -10,7 +10,8 @@ List<ProductDetail> product_detail_data = [
     imageUrl:
         'https://www.eatright.org/-/media/images/eatright-articles/eatright-article-feature-images/benefitsofcoffee_600x450.jpg?h=450&w=600&rev=6c8a9cd4a94d4cac8af8543054fd7b07&hash=F64F1F79DE48F33E3FB6A4FD5979C51F',
     sizeOption: [
-      {'l': 7, 'm': 5, 's': 3.5},
+      {'l': 5.3},
+      {'m': 2.3},
     ],
     type: ['ice', 'hot'],
     isDelivery: true,
