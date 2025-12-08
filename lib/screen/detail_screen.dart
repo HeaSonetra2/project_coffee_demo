@@ -1,14 +1,21 @@
 import 'package:coffee_demo/data/product_detail_data.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final int productIDHome;
   const DetailScreen({super.key, required this.productIDHome});
 
   @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+int selectIndex = 0;
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
   Widget build(BuildContext context) {
     final product = product_detail_data.firstWhere(
-      (item) => item.productId == productIDHome,
+      (item) => item.productId == widget.productIDHome,
     );
     return Scaffold(
       appBar: AppBar(
@@ -83,19 +90,63 @@ class DetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 18),
 
+            // Row(
+            //   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     for (int i = 0; i < product.sizeOption.length; i++)
+            //       Padding(
+            //         padding: const EdgeInsets.only(right: 8),
+            //         child: Container(
+            //           width: 110,
+            //           height: 60,
+            //           decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(12),
+            //             color: Colors.white,
+            //             border: Border.all(color: Colors.grey),
+            //           ),
+            //           child: Center(
+            //             child: Text(
+            //               '${product.sizeOption[i].keys.join(',')}',
+            //               style: TextStyle(fontSize: 18),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //   ],
+            // ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 for (int i = 0; i < product.sizeOption.length; i++)
                   Container(
-                    width: 116,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.amber,
-                    ),
-                    child: Center(
-                      child: Text('${product.sizeOption[i].keys}'),
+                    width: 110,
+                    height: 50,
+                    margin: EdgeInsets.only(right: 10),
+                    child: ChoiceChip(
+                      showCheckmark: false,
+                      label: Center(
+                        child: Text('${product.sizeOption[i].keys.join(',')}'),
+                      ),
+                      selected: selectIndex == i,
+                      labelStyle: TextStyle(
+                        color: selectIndex == i
+                            ? Color(0xFFc67c4e)
+                            : Colors.black,
+                        fontSize: 16,
+                      ),
+                      backgroundColor:selectIndex == i? Color(0xFFc67c4e):Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(
+                          color: selectIndex == i
+                              ? Color(0xFFc67c4e)
+                              : Colors.black,
+                        ),
+                      ),
+                      onSelected: (value) => {
+                        setState(() {
+                          selectIndex = i;
+                        }),
+                      },
                     ),
                   ),
               ],
