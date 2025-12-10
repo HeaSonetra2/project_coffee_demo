@@ -1,4 +1,5 @@
 import 'package:coffee_demo/data/product_detail_data.dart';
+import 'package:coffee_demo/screen/oder_screen.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -19,7 +20,12 @@ class _DetailScreenState extends State<DetailScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text('DetailScreen'),
+        title: Text('DetailScreen',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+        
+        )
+        
+        ,
         centerTitle: true,
         automaticallyImplyLeading: false,
         leading: InkWell(
@@ -90,42 +96,24 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             SizedBox(height: 18),
 
-            // Row(
-            //   //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     for (int i = 0; i < product.sizeOption.length; i++)
-            //       Padding(
-            //         padding: const EdgeInsets.only(right: 8),
-            //         child: Container(
-            //           width: 110,
-            //           height: 60,
-            //           decoration: BoxDecoration(
-            //             borderRadius: BorderRadius.circular(12),
-            //             color: Colors.white,
-            //             border: Border.all(color: Colors.grey),
-            //           ),
-            //           child: Center(
-            //             child: Text(
-            //               '${product.sizeOption[i].keys.join(',')}',
-            //               style: TextStyle(fontSize: 18),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //   ],
-            // ),
             Row(
               children: [
                 for (int i = 0; i < product.sizeOption.length; i++)
                   Container(
                     width: 110,
-                    height: 50,
+                    height: 60,
                     margin: EdgeInsets.only(right: 10),
                     child: ChoiceChip(
                       showCheckmark: false,
-                      label: Center(
+                      label: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 4,
+                          left: 30,
+                          right: 30,
+                        ),
                         child: Text('${product.sizeOption[i].keys.join(',')}'),
                       ),
+
                       selected: selectIndex == i,
                       labelStyle: TextStyle(
                         color: selectIndex == i
@@ -133,7 +121,9 @@ class _DetailScreenState extends State<DetailScreen> {
                             : Colors.black,
                         fontSize: 16,
                       ),
-                      backgroundColor:selectIndex == i? Color(0xFFc67c4e):Colors.white,
+                      backgroundColor: selectIndex == i
+                          ? Color(0xFFc67c4e)
+                          : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                         side: BorderSide(
@@ -151,6 +141,55 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
               ],
             ),
+            Spacer(),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      'Price',
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    ),
+                    Text(
+                      '\$ ${product.sizeOption[selectIndex].values.join(',')}',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFFc67c4e),
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OderScreen(productIDdetail:product.id,)),
+                    );
+                  },
+                  child: Container(
+                    width: 220,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFc67c4e),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Buy Now',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 60),
           ],
         ),
       ),
