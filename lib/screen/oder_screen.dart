@@ -112,6 +112,131 @@ class _OderScreenState extends State<OderScreen> {
                     ),
                   )
                 : Center(),
+            SizedBox(height: 40),
+            (product.isDelivery && isDelivery)
+                ? Container(
+                    width: double.infinity,
+                    height: 160,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Delivery Address',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          '${product.address}',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          '${product.addressInfo}',
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 192, 180, 180),
+                          ),
+                        ),
+                        Spacer(),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                TextEditingController addressController = TextEditingController();
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    title: Text('Edit Address'),
+                                    content: TextField(
+                                      controller: addressController,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter new address",
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("Cancel"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          String value = addressController.text;
+                                          print(
+                                            value,
+                                          ); // Do something with entered address
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Save"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 120,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: const Color.fromARGB(
+                                      255,
+                                      147,
+                                      147,
+                                      147,
+                                    ),
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.edit_calendar),
+                                    Text('Edit Adress'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20),
+
+                            Container(
+                              width: 120,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: const Color.fromARGB(
+                                    255,
+                                    147,
+                                    147,
+                                    147,
+                                  ),
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(Icons.edit_document),
+                                  Text('Add note'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  )
+                : Center(),
           ],
         ),
       ),

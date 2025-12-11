@@ -16,6 +16,8 @@ List<OderProduct> productOder = [
     ],
     type: ['ice', 'hot'],
     isDelivery: true,
+    address: 'Phnom penh',
+    addressInfo: 'Street 23,Sen Sok,Phnom Penh',
   ),
 
   OderProduct(
