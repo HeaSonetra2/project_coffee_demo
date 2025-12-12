@@ -1,4 +1,6 @@
+import 'package:coffee_demo/data/product_data.dart';
 import 'package:coffee_demo/data/product_oder.dart';
+import 'package:coffee_demo/model/oder_product.dart';
 import 'package:flutter/material.dart';
 
 class OderScreen extends StatefulWidget {
@@ -15,6 +17,10 @@ class _OderScreenState extends State<OderScreen> {
   @override
   Widget build(BuildContext context) {
     final product = productOder.firstWhere(
+      (item) => item.productID == widget.productIDdetail,
+    );
+
+    int currentIndex = productOder.indexWhere(
       (item) => item.productID == widget.productIDdetail,
     );
     return Scaffold(
@@ -147,7 +153,8 @@ class _OderScreenState extends State<OderScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                TextEditingController addressController = TextEditingController();
+                                TextEditingController addressController =
+                                    TextEditingController();
                                 showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
@@ -168,6 +175,12 @@ class _OderScreenState extends State<OderScreen> {
                                       TextButton(
                                         onPressed: () {
                                           String value = addressController.text;
+                                          setState(() {
+                                            productOder[currentIndex] =
+                                                productOder[currentIndex]
+                                                    .copyWith(address: value);
+                                            print('${product}');
+                                          });
                                           print(
                                             value,
                                           ); // Do something with entered address
