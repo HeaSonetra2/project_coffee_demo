@@ -1,6 +1,4 @@
-import 'package:coffee_demo/data/product_data.dart';
 import 'package:coffee_demo/data/product_oder.dart';
-import 'package:coffee_demo/model/oder_product.dart';
 import 'package:flutter/material.dart';
 
 class OderScreen extends StatefulWidget {
@@ -250,6 +248,165 @@ class _OderScreenState extends State<OderScreen> {
                     ),
                   )
                 : Center(),
+            SizedBox(height: 10),
+
+            Container(
+              height: 60,
+              width: double.infinity,
+              child: Row(
+                children: [
+                  Container(
+                    width: 60,
+                    height: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image(
+                        image: NetworkImage(product.imageUrl),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${product.name}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Deep Form',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Container(
+                    width: 120,
+                    height: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (product.qty > 1) {
+                                product.qty -= 1;
+                              }
+                            });
+                          },
+                          child: Container(
+                            width: 26,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(child: Icon(Icons.remove)),
+                          ),
+                        ),
+                        Text(
+                          '${product.qty}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              product.qty += 1;
+                            });
+                          },
+                          child: Container(
+                            width: 26,
+                            height: 26,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(child: Icon(Icons.add)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: Container(
+                      width: 400,
+                      height: 200,
+                      decoration: BoxDecoration(color: Colors.amber),
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.percent_sharp, color: Colors.red, size: 20),
+                    SizedBox(width: 20),
+                    Text(
+                      '1 Discount is Applies',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.arrow_right),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 180,
+              decoration: BoxDecoration(color: Colors.amber),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Payment Sumary',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Payment',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    //  Text('${product.sizeOption.first}')
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

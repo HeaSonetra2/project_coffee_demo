@@ -1,7 +1,7 @@
 class OderProduct {
   final int id;
   final int productID;
-  final int qty;
+        int qty;
   final String name;
   final String imageUrl;
   final double deliveryFee;
