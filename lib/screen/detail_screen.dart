@@ -165,7 +165,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => OderScreen(productIDdetail:product.id,)),
+                      MaterialPageRoute(builder: (context) => OderScreen(productIDdetail:product.id,selectIndexSize: selectIndex,)),
                     );
                   },
                   child: Container(

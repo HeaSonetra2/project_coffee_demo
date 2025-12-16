@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 
 class OderScreen extends StatefulWidget {
   int productIDdetail;
-  OderScreen({super.key, required this.productIDdetail});
+  int selectIndexSize;
+  OderScreen({
+    super.key,
+    required this.productIDdetail,
+    required this.selectIndexSize,
+  });
 
   @override
   State<OderScreen> createState() => _OderScreenState();
@@ -21,6 +26,12 @@ class _OderScreenState extends State<OderScreen> {
     int currentIndex = productOder.indexWhere(
       (item) => item.productID == widget.productIDdetail,
     );
+
+    double price = product.sizeOption[widget.selectIndexSize].values.first;
+
+    var total = price * (product.qty);
+
+    double payment = (isDelivery) ? (total + 1) : total;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -381,10 +392,10 @@ class _OderScreenState extends State<OderScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             Container(
               width: double.infinity,
-              height: 180,
-              decoration: BoxDecoration(color: Colors.amber),
+              height: 140,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -392,6 +403,8 @@ class _OderScreenState extends State<OderScreen> {
                     'Payment Sumary',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 20),
+
                   Row(
                     children: [
                       Text(
@@ -401,8 +414,146 @@ class _OderScreenState extends State<OderScreen> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                    //  Text('${product.sizeOption.first}')
+                      Spacer(),
+                      Text('${total.toStringAsFixed(2)}'),
                     ],
+                  ),
+                  SizedBox(height: 20),
+                  (isDelivery)
+                      ? Row(
+                          children: [
+                            Text(
+                              'Delivery Fee',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Spacer(),
+
+                            Text('1.00\$'),
+                          ],
+                        )
+                      : Center(),
+                ],
+              ),
+            ),
+
+            Container(
+              width: double.infinity,
+              height: 120,
+              //color: Colors.black,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(16),
+                          ),
+                        ),
+                        builder: (context) {
+                          return Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Center(
+                                  child: Text(
+                                    'Select Payment Method',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 16),
+
+                                ListTile(
+                                  leading: Icon(Icons.money),
+                                  title: Text('Cash on Delivery'),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+
+                                ListTile(
+                                  leading: Icon(Icons.account_balance),
+                                  title: Text('ABA Bank'),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+
+                                ListTile(
+                                  leading: Icon(Icons.account_balance_wallet),
+                                  title: Text('Wing'),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+
+                                ListTile(
+                                  leading: Icon(Icons.credit_card),
+                                  title: Text('Credit Card'),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 70,
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Icon(Icons.badge),
+                          SizedBox(width: 20),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Text(
+                                'Payment\/Wallet',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text('${payment.toStringAsFixed(2)}\$'),
+                            ],
+                          ),
+                          Spacer(),
+                          Icon(Icons.arrow_downward),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFc67c4e),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Oder',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
